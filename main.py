@@ -44,7 +44,7 @@ if(__name__ == '__main__'):
     parser = argparse.ArgumentParser(description='')
     parser.add_argument("-algorithm", default='UMDQN_C', type=str, help="Name of the RL algorithm")
     parser.add_argument("-environment", default='SimpleGridWorld', type=str, help="Name of the RL environment")
-    parser.add_argument("-episodes", default=5000, type=str, help="Number of episodes for training")
+    parser.add_argument("-episodes", default=5, type=str, help="Number of episodes for training")
     parser.add_argument("-parameters", default='parameters', type=str, help="Name of the JSON parameters file")
     args = parser.parse_args()
 

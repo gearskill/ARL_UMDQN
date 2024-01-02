@@ -16,6 +16,7 @@ import pandas as pd
 
 from tqdm import tqdm
 from matplotlib import pyplot as plt
+import matplotlib
 
 import torch
 import torch.optim as optim
@@ -31,7 +32,7 @@ from Models.DNN_Atari import DNN_Atari
 from Models.DNN_MinAtar import DNN_MinAtar
 
 
-
+matplotlib.rcParams['text.usetex'] = False
 ###############################################################################
 #################################### Class DQN ################################
 ###############################################################################
