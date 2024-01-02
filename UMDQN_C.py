@@ -225,7 +225,7 @@ class UMDQN_C(DQN):
 
             # Computation of the current return distribution, according to the policy DNN
             cdfs = self.policyNetwork(state, self.supportRepeatedBatchSize)
-            selection = torch.tensor([self.actionSpace*i + action[i] for i in range(self.batchSize)], dtype=torch.long, device=self.device)
+            selection = torch.tensor(np.array([self.actionSpace*i + action[i] for i in range(self.batchSize)]), dtype=torch.long, device=self.device)
             cdfs = torch.index_select(cdfs, 0, selection).view(-1, 1)
 
             # Computation of the next action, according to the policy DNN
