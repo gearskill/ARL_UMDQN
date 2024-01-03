@@ -21,7 +21,7 @@ from gym import spaces
 ###############################################################################
 
 # Default parameters for the environment configuration
-size = 4
+size = 7
 timeOut = 20
 
 # Parameters associated with stochasticity

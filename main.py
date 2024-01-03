@@ -43,8 +43,8 @@ if(__name__ == '__main__'):
     # Retrieve the paramaters sent by the user
     parser = argparse.ArgumentParser(description='')
     parser.add_argument("-algorithm", default='UMDQN_C', type=str, help="Name of the RL algorithm")
-    parser.add_argument("-environment", default='SimpleGridWorld', type=str, help="Name of the RL environment")
-    parser.add_argument("-episodes", default=5, type=str, help="Number of episodes for training")
+    parser.add_argument("-environment", default='StochasticGridWorld', type=str, help="Name of the RL environment")
+    parser.add_argument("-episodes", default=2, type=str, help="Number of episodes for training")
     parser.add_argument("-parameters", default='parameters', type=str, help="Name of the JSON parameters file")
     args = parser.parse_args()
 
@@ -94,20 +94,19 @@ if(__name__ == '__main__'):
     RLAgent = className(observationSpace, actionSpace, environment, parameters)
 
     # Training of the RL agent
-    RLAgent.training(env, episodes, verbose=False, rendering=False, plotTraining=True)
+    RLAgent.training(env, episodes, verbose=False, rendering=False, plotTraining=False)
     #RLAgent.plotExpectedPerformance(env, episodes, iterations=5)
-    
     # Saving of the RL model
     RLAgent.saveModel(fileName)
 
     # Loading of the RL model
     RLAgent.loadModel(fileName)
-
     # Testing of the RL agent
     RLAgent.testing(env, verbose=True, rendering=False)
 
     # Plotting of the true distribution of the random return via Monte Carlo
     #"""
+    print("Montecarlo Stuff")
     state = [int(7/2)-1, 7-1]
     optimalPolicy = StochasticGridWorldOptimal(env)
     MonteCarloDistributions = MonteCarloDistributions(env, optimalPolicy, 0.5)
