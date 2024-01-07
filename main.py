@@ -44,7 +44,7 @@ if(__name__ == '__main__'):
     parser = argparse.ArgumentParser(description='')
     parser.add_argument("-algorithm", default='UMDQN_C', type=str, help="Name of the RL algorithm")
     parser.add_argument("-environment", default='StochasticGridWorld', type=str, help="Name of the RL environment")
-    parser.add_argument("-episodes", default=2, type=str, help="Number of episodes for training")
+    parser.add_argument("-episodes", default=5, type=str, help="Number of episodes for training")
     parser.add_argument("-parameters", default='parameters', type=str, help="Name of the JSON parameters file")
     args = parser.parse_args()
 
@@ -69,7 +69,7 @@ if(__name__ == '__main__'):
     
     # Initialization of the RL environment
     if environment == 'SimpleGridWorld':
-        env = StochasticGridWorld()
+        env = SimpleGridWorld()
     elif environment == 'StochasticGridWorld':
         env = StochasticGridWorld()
     elif environment in ['CartPole-v1', 'Acrobot-v1', 'LunarLander-v2', 'MountainCar-v0']:
@@ -94,22 +94,23 @@ if(__name__ == '__main__'):
     RLAgent = className(observationSpace, actionSpace, environment, parameters)
 
     # Training of the RL agent
-    RLAgent.training(env, episodes, verbose=False, rendering=False, plotTraining=False)
-    #RLAgent.plotExpectedPerformance(env, episodes, iterations=5)
+    #RLAgent.training(env, episodes, verbose=True, rendering=False, plotTraining=False)
+    #RLAgent.plotExpectedPerformance(env, 5000, iterations=5)
     # Saving of the RL model
-    RLAgent.saveModel(fileName)
+    #RLAgent.saveModel(fileName)
 
     # Loading of the RL model
     RLAgent.loadModel(fileName)
+    print(fileName)
     # Testing of the RL agent
-    RLAgent.testing(env, verbose=True, rendering=False)
+    #RLAgent.testing(env, verbose=True, rendering=False)
 
     # Plotting of the true distribution of the random return via Monte Carlo
     #"""
-    print("Montecarlo Stuff")
+    print("start MC")
     state = [int(7/2)-1, 7-1]
-    optimalPolicy = StochasticGridWorldOptimal(env)
-    MonteCarloDistributions = MonteCarloDistributions(env, optimalPolicy, 0.5)
-    #MonteCarloDistributions = MonteCarloDistributions(env, RLAgent, 0.5)
+    #optimalPolicy = StochasticGridWorldOptimal(env)
+    #MonteCarloDistributions = MonteCarloDistributions(env, optimalPolicy, 0.5)
+    MonteCarloDistributions = MonteCarloDistributions(env, RLAgent, 0.5)
     MonteCarloDistributions.plotDistributions(state)
     #"""

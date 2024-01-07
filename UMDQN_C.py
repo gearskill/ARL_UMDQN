@@ -158,6 +158,7 @@ class UMDQN_C(DQN):
             _, action = QValues.max(0)
 
             # If required, plot the return distribution associated with each action
+            #plot = (int(state[0][0]) == int(7/2)-1 and int(state[0][1]) ==  7-1)
             if plot:
                 colors = ['blue', 'red', 'orange', 'green', 'purple', 'brown']
                 plt.figure()

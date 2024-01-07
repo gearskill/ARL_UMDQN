@@ -5,6 +5,8 @@
 ###############################################################################
 
 import pandas as pd
+import numpy as np
+import datetime
 
 from matplotlib import pyplot as plt
 from matplotlib import rc
@@ -17,7 +19,7 @@ rc('text', usetex=True)
 ###############################################################################
 
 # Default parameters for the plotting of the distributions
-numberOfSamples = 10000000
+numberOfSamples = 10000
 bins = 1000
 density = True
 plotRange = (-2.1, 2.1)
@@ -74,11 +76,11 @@ class MonteCarloDistributions():
         """
 
         # Initialization of the memory storing the MC samples
-        samples = []
+        #samples = []
+        samples = np.empty(numberOfSamples, dtype=np.float32)
 
         # Generation of the MC samples
         for _i in range(numberOfSamples):
-
             # Initialization of some variables
             expectedReturn = 0
             step = 0
@@ -107,10 +109,10 @@ class MonteCarloDistributions():
                 step += 1
             
             # Add the MC sample to the memory
-            samples.append(expectedReturn)
+            samples[_i] = expectedReturn
 
         # Output the MC samples collected
-        return samples
+        return samples.tolist()
 
 
     def plotDistributions(self, state, numberOfSamples=numberOfSamples):
@@ -128,7 +130,12 @@ class MonteCarloDistributions():
         samples = []
         actions = 4
         for action in range(actions):
-            samples.append(self.samplingMonteCarlo(state, action, numberOfSamples))
+            now = datetime.datetime.now()
+            print("n_th_action_start_time: ", now)
+            tmp = self.samplingMonteCarlo(state, action, numberOfSamples)
+            dfTMP = pd.DataFrame(tmp)
+            dfTMP.to_csv('Figures/Distributions/' + str(now) + '.csv')
+            samples.append(tmp)
 
         # Initialization of the figure
         colors = ['blue', 'red', 'orange', 'green', 'purple', 'brown']

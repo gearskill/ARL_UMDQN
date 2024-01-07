@@ -411,7 +411,7 @@ class DQN:
             for episode in range(numberOfEpisodes):
                 now = datetime.datetime.now()
                 current_time = now.strftime("%H:%M:%S")
-                print("Current Time =", current_time)
+                #print("Current Time =", current_time)
 
                 # Set the initial RL variables
                 state = self.processState(trainingEnv.reset())
